@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_vectorclock" default="compile.module.vectorclock">
+  <dirname property="module.vectorclock.basedir" file="${ant.file.module_vectorclock}"/>
+  
+  <property name="module.jdk.home.vectorclock" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.vectorclock" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.vectorclock" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.vectorclock" value="-encoding UTF-8 -source 1.6 ${compiler.args}"/>
+  
+  <property name="vectorclock.output.dir" value="${module.vectorclock.basedir}/out/production/VectorClock"/>
+  <property name="vectorclock.testoutput.dir" value="${module.vectorclock.basedir}/out/test/VectorClock"/>
+  
+  <path id="vectorclock.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="vectorclock.module.production.classpath">
+    <path refid="${module.jdk.classpath.vectorclock}"/>
+    <path refid="library.junit-4.10.classpath"/>
+    <pathelement location="${basedir}/lib/jeromq-0.2.0.jar"/>
+  </path>
+  
+  <path id="vectorclock.runtime.production.module.classpath">
+    <pathelement location="${vectorclock.output.dir}"/>
+    <path refid="library.junit-4.10.classpath"/>
+    <pathelement location="${basedir}/lib/jeromq-0.2.0.jar"/>
+  </path>
+  
+  <path id="vectorclock.module.classpath">
+    <path refid="${module.jdk.classpath.vectorclock}"/>
+    <pathelement location="${vectorclock.output.dir}"/>
+    <path refid="library.junit-4.10.classpath"/>
+    <pathelement location="${basedir}/lib/jeromq-0.2.0.jar"/>
+  </path>
+  
+  <path id="vectorclock.runtime.module.classpath">
+    <pathelement location="${vectorclock.testoutput.dir}"/>
+    <pathelement location="${vectorclock.output.dir}"/>
+    <path refid="library.junit-4.10.classpath"/>
+    <pathelement location="${basedir}/lib/jeromq-0.2.0.jar"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.vectorclock">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.vectorclock">
+    <patternset refid="excluded.from.module.vectorclock"/>
+  </patternset>
+  
+  <path id="vectorclock.module.sourcepath">
+    <dirset dir="${module.vectorclock.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.vectorclock" depends="compile.module.vectorclock.production,compile.module.vectorclock.tests" description="Compile module VectorClock"/>
+  
+  <target name="compile.module.vectorclock.production" depends="register.custom.compilers" description="Compile module VectorClock; production classes">
+    <mkdir dir="${vectorclock.output.dir}"/>
+    <javac2 destdir="${vectorclock.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.vectorclock}/javac">
+      <compilerarg line="${compiler.args.vectorclock}"/>
+      <bootclasspath refid="vectorclock.module.bootclasspath"/>
+      <classpath refid="vectorclock.module.production.classpath"/>
+      <src refid="vectorclock.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.vectorclock"/>
+    </javac2>
+    
+    <copy todir="${vectorclock.output.dir}">
+      <fileset dir="${module.vectorclock.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.vectorclock.tests" depends="register.custom.compilers,compile.module.vectorclock.production" description="compile module VectorClock; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.vectorclock" description="cleanup module">
+    <delete dir="${vectorclock.output.dir}"/>
+    <delete dir="${vectorclock.testoutput.dir}"/>
+  </target>
+</project>

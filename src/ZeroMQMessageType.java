@@ -1,0 +1,6 @@
+/**
+ * Created by AVELL on 17/11/14.
+ */
+public enum ZeroMQMessageType {
+    ADD_MESSAGE, SET_VECTOR_INDEX, GET_INITIAL_VECTOR, GET_MY_PROCESS_INDEX, SEND_A_MESSAGE;
+}

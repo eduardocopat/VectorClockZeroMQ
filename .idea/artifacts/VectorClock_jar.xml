@@ -1,0 +1,13 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="VectorClock:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/VectorClock_jar</output-path>
+    <root id="archive" name="VectorClock.jar">
+      <element id="module-output" name="VectorClock" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jansi-1.7.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$APPLICATION_HOME_DIR$/lib/junit-4.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/jeromq-0.2.0.jar" path-in-jar="/" />
+      <element id="library" level="project" name="jansi-1.7" />
+      <element id="file-copy" path="$PROJECT_DIR$/lib/jeromq-0.2.0.jar" />
+    </root>
+  </artifact>
+</component>

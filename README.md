@@ -4,7 +4,7 @@ VectorClockZeroMQ
 Vector clock implementation using ZeroMQ
 
 To execute a server
-=================
+-------
 
 	java -jar VectorClock.jar server numberOfProcesses
 	
@@ -13,7 +13,7 @@ Example:
 	
 	
 To execute a client
-=================
+-------
 
 	java -jar VectorClock.jar client serverIP
 	
